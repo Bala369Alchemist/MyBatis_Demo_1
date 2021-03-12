@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.example.mybatis_demo_1.mapper.ArticlesMapper">
+	<!--<cache /> -->
+	<resultMap id="baseResultMap"
+		type="com.example.mybatis_demo_1.entity.Articles">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectOne" resultMap="baseResultMap">
+		select id,title,author from
+		demo_mybatis_1.articles where id=#{id}
+	</select>
+
+	<select id="getAllArticles" resultMap="baseResultMap">
+		select id,title,author
+		from demo_mybatis_1.articles
+	</select>
+
+	<insert id="addArticle"
+		parameterType="com.example.mybatis_demo_1.entity.Articles">
+		insert into demo_mybatis_1.articles(id,title,author)
+		values(#{id},#{title},#{author})
+	</insert>
+
+	<update id="updateArticle"
+		parameterType="com.example.mybatis_demo_1.entity.Articles">
+		update demo_mybatis_1.articles set title =
+		#{article.title}, author =
+		#{article.author} where id = #{id};
+	</update>
+
+	<delete id="deleteArticle" parameterType="long">
+		delete from demo_mybatis_1.articles where id = #{id};
+	</delete>
+
+
+</mapper>
